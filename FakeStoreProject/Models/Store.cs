@@ -6,6 +6,8 @@ public class Store
     public Store()
     {
         Staffs = new List<Staff>();
+
+        Orders = new List<Orders>();
     }
     public int Id { get; set; }
     [Required]
@@ -21,8 +23,11 @@ public class Store
 
     public List<Staff> Staffs { get; set; }
 
+    public List<Orders> Orders { get; set; }
 
-    //TODO add list of orders, Stocks, and finish Staffs.
+
+
+   //finished get teachers opinion
 
 
 }

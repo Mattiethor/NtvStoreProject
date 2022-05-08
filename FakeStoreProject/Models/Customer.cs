@@ -5,7 +5,7 @@
 
         public Customer()
         {
-            Orders = new List<Order>();
+            Orders = new List<Orders>();
         }
         public int Id { get; set; }
 
@@ -13,15 +13,14 @@
 
         public int lastName { get; set; }
 
-        //spyrja kennara
-        public DateTime CreatedDate { get; set; }
-
         public string street { get; set; }
 
         public string city { get; set; }
 
         public string postCode { get; set; }
 
-        List<Order> Orders { get; set; }
+        List<Orders> Orders { get; set; }
     }
 }
+
+//Búið spyrja kennara
