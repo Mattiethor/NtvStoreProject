@@ -7,7 +7,7 @@ public class Store
     {
         Staffs = new List<Staff>();
 
-        Orders = new List<Orders>();
+        Orders = new List<Order>();
     }
     public int Id { get; set; }
     [Required]
@@ -15,15 +15,12 @@ public class Store
     public string Phone { get; set; }
     public string Email { get; set; }
     [Required]
-    public string street { get; set; }
-    [Required]
-    public string city { get; set; }
-    [Required]
-    public int postcode { get; set; }
+    
+    public Address Address { get; set; }
 
     public List<Staff> Staffs { get; set; }
 
-    public List<Orders> Orders { get; set; }
+    public List<Order> Orders { get; set; }
 
 
 

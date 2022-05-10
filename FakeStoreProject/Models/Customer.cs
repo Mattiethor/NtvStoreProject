@@ -5,21 +5,18 @@
 
         public Customer()
         {
-            Orders = new List<Orders>();
+            Orders = new List<Order>();
+            Address = new Address();
         }
         public int Id { get; set; }
 
-        public string firstName { get; set; }
+        public string FirstName { get; set; }
 
-        public int lastName { get; set; }
+        public string LastName { get; set; }
 
-        public string street { get; set; }
+        public Address Address { get; set; }
 
-        public string city { get; set; }
-
-        public string postCode { get; set; }
-
-        List<Orders> Orders { get; set; }
+        public List<Order> Orders { get; set; }
     }
 }
 

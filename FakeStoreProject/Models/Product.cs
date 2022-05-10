@@ -2,9 +2,9 @@
 
 namespace FakeStoreProject.Models
 {
-    public class Products
+    public class Product
     {
-        public Products()
+        public Product()
         {
             ItemOrders = new List<ItemOrder>();
         }
@@ -12,9 +12,17 @@ namespace FakeStoreProject.Models
         [Required]
         public string Name { get; set; }
         [Required]
-        public int categoryId { get; set; }
+        public int CategoryId { get; set; }
+        
+        public int StockId { get; set; }
 
-        public int price { get; set; }
+        public int ListPrice { get; set; }
+
+        public int ModelYear { get; set; }
+
+        public string Description { get; set; }
+
+        public string ImgUrl { get; set; }
         
         public List<ItemOrder> ItemOrders { get; set; }
 

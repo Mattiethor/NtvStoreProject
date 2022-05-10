@@ -13,6 +13,9 @@ namespace FakeStoreProject.Models
 
         public int Quantity { get; set; }
 
+        //Skoða betur
+        public int ListPrice { get; set; }
+
 
     }
 }

@@ -6,19 +6,20 @@ namespace FakeStoreProject.Models
     {
         public Staff()
         {
-            Orders = new List<Orders>();
+            Orders = new List<Order>();
         }
         public int Id { get; set; }
         
         [Required]
         public int StoreId { get; set; }
         [Required]
-        public string firstName { get; set; }
+        public string FirstName { get; set; }
         [Required]
-        public int lastName { get; set; }
+        public int LastName { get; set; }
 
-        public int managerId { get; set; }
-        public List<Orders> Orders { get; set; }
+        //Skoða betur
+        public int ManagerId { get; set; }
+        public List<Order> Orders { get; set; }
 
     }
 }
