@@ -38,10 +38,11 @@ namespace FakeStoreProject.Data
         }
 
         //TODO fill out initial seed 
-        #region Required
+        
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             
+
             //test address
             modelBuilder.Entity<Address>().HasData(new Address { Id = 1, City = "Reykjavik", PostCode = 101, Street = "Store Street" });
 
@@ -63,14 +64,16 @@ namespace FakeStoreProject.Data
             modelBuilder.Entity<Staff>().HasData(new Staff { Id = 1, FirstName = "Bob", LastName = "Staffmann", StoreId = 1 });
 
             //Test order 
-            modelBuilder.Entity<Order>().HasData(new Order { Id = 1, StoreId = 1, ItemOrderId = 1, CustomerId = 1 });
+            modelBuilder.Entity<Order>().HasData(new Order { Id = 1,  StoreId = 1, ItemOrderId = 1, CustomerId = 1});
             //Test ItemOrder 
 
             modelBuilder.Entity<ItemOrder>().HasData(new ItemOrder { Id = 1, ProductId = 1, Quantity = 5, OrderId = 1 });
 
 
+            
+
         }
-        #endregion
+       
 
 
 
