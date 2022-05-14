@@ -15,17 +15,12 @@ public class Store
     public string Phone { get; set; }
     public string Email { get; set; }
     [Required]
-    
-    public Address Address { get; set; }
+
+    public int AddressId { get; set; }
 
     public List<Staff> Staffs { get; set; }
 
     public List<Order> Orders { get; set; }
-
-
-
-   //finished get teachers opinion
-
 
 }
 

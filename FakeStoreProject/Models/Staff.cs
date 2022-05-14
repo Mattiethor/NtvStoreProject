@@ -4,10 +4,12 @@ namespace FakeStoreProject.Models
 {
     public class Staff
     {
+        /*
         public Staff()
         {
             Orders = new List<Order>();
         }
+        */
         public int Id { get; set; }
         
         [Required]
@@ -15,13 +17,13 @@ namespace FakeStoreProject.Models
         [Required]
         public string FirstName { get; set; }
         [Required]
-        public int LastName { get; set; }
+        public string LastName { get; set; }
 
         //Skoða betur
         public int ManagerId { get; set; }
-        public List<Order> Orders { get; set; }
+
+        //public List<Order> Orders { get; set; }
 
     }
 }
 
-//finished ask teacher
