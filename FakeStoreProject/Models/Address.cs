@@ -16,8 +16,12 @@
 
         public int PostCode { get; set; }
 
+<<<<<<< HEAD
         public List<Customer> Customers { get; set; }
 
         public List<Store> Stores { get; set; }
+=======
+
+>>>>>>> 7d3e6030a0d57d462bd88f35342dacfd5720f95b
     }
 }

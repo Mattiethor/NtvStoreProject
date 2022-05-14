@@ -6,8 +6,8 @@ public class Store
     public Store()
     {
         Staffs = new List<Staff>();
-
-        Orders = new List<Order>();
+        
+        
     }
     public int Id { get; set; }
     [Required]

@@ -21,4 +21,3 @@ namespace FakeStoreProject.Models
     }
 }
 
-//finsished ask teacher

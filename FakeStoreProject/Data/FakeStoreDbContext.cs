@@ -13,7 +13,7 @@ namespace FakeStoreProject.Data
 
         public DbSet<ItemOrder> ItemsOrders { get; set; }
         
-        public DbSet<Order> Orders { get; set; }
+        public DbSet<Order>? Orders { get; set; }
 
         public DbSet<Product> Products { get; set; }
 
@@ -77,5 +77,5 @@ namespace FakeStoreProject.Data
 
 
 
-    }
+}
 }
