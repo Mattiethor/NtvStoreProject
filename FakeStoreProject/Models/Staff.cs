@@ -15,7 +15,7 @@ namespace FakeStoreProject.Models
         [Required]
         public string FirstName { get; set; }
         [Required]
-        public int LastName { get; set; }
+        public string LastName { get; set; }
 
         //Skoða betur
         public int ManagerId { get; set; }

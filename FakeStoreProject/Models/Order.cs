@@ -5,10 +5,13 @@ namespace FakeStoreProject.Models
     public class Order
     {
         
-        public int Id { get; set; }
+        [Key]
+        public int OrderId { get; set; }
 
-        [Required]
-        public int StoreId { get; set; }
+        //ask teacher
+       /* [Required]
+        public int StoreId { get; set; } */
+
         public int CustomerId { get; set; }
         [Required]
         public int StaffId { get; set; }
@@ -18,4 +21,3 @@ namespace FakeStoreProject.Models
     }
 }
 
-//finsished ask teacher

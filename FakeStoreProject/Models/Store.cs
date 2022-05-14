@@ -6,8 +6,8 @@ public class Store
     public Store()
     {
         Staffs = new List<Staff>();
-
-        Orders = new List<Order>();
+        
+        
     }
     public int Id { get; set; }
     [Required]
@@ -15,16 +15,16 @@ public class Store
     public string Phone { get; set; }
     public string Email { get; set; }
     [Required]
-    
-    public Address Address { get; set; }
+
+    public int AddressId { get; set; }
 
     public List<Staff> Staffs { get; set; }
 
-    public List<Order> Orders { get; set; }
+   // public List<Order> Orders { get; set; }
 
 
 
-   //finished get teachers opinion
+    //finished get teachers opinion
 
 
 }

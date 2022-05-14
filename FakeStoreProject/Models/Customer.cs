@@ -6,7 +6,7 @@
         public Customer()
         {
             Orders = new List<Order>();
-            Address = new Address();
+            
         }
         public int Id { get; set; }
 
@@ -14,7 +14,7 @@
 
         public string LastName { get; set; }
 
-        public Address Address { get; set; }
+        public int AddressId { get; set; }
 
         public List<Order> Orders { get; set; }
     }
