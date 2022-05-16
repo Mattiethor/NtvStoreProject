@@ -1,4 +1,6 @@
-﻿namespace FakeStoreProject.Models
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace FakeStoreProject.Models
 {
     public class Customer
     {
@@ -9,9 +11,9 @@
             
         }
         public int Id { get; set; }
-
+        [Column(TypeName = "varchar(255)")]
         public string FirstName { get; set; }
-
+        [Column(TypeName = "varchar(255)")]
         public string LastName { get; set; }
 
         public int AddressId { get; set; }
@@ -20,4 +22,3 @@
     }
 }
 
-//Búið spyrja kennara

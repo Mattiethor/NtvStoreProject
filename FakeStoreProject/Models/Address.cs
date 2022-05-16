@@ -1,4 +1,6 @@
-﻿namespace FakeStoreProject.Models
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace FakeStoreProject.Models
 {
     public class Address
     {
@@ -10,18 +12,19 @@
         }
 
         public int Id { get; set; }
+        [Column(TypeName = "varchar(255)")]
         public string Street { get; set; }
-
+        [Column(TypeName = "varchar(255)")]
         public string City { get; set; }
 
-        public int PostCode { get; set; }
+        [Column(TypeName = "varchar(255)")]
+        public string PostCode { get; set; }
 
-<<<<<<< HEAD
         public List<Customer> Customers { get; set; }
 
         public List<Store> Stores { get; set; }
-=======
 
->>>>>>> 7d3e6030a0d57d462bd88f35342dacfd5720f95b
+
+
     }
 }

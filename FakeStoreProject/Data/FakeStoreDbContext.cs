@@ -44,7 +44,7 @@ namespace FakeStoreProject.Data
             
 
             //test address
-            modelBuilder.Entity<Address>().HasData(new Address { Id = 1, City = "Reykjavik", PostCode = 101, Street = "Store Street" });
+            modelBuilder.Entity<Address>().HasData(new Address { Id = 1, City = "Reykjavik", PostCode = "101", Street = "Store Street" });
 
             //test store
             modelBuilder.Entity<Store>().HasData(new Store { Id = 1,  Name = "FakeStore", Email = "Fakestore@fakestore.com", Phone = "444-5555", AddressId = 1});

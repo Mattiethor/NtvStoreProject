@@ -17,6 +17,3 @@ namespace FakeStoreProject.Models
 
     }
 }
-
-//Spyrja kennara aftur með product id. 
-//Væri betra að breyta því í Public product product ?

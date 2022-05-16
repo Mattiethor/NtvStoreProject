@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FakeStoreProject.Migrations
 {
     [DbContext(typeof(FakeStoreDbContext))]
-    [Migration("20220514181601_init")]
+    [Migration("20220515105752_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -34,14 +34,15 @@ namespace FakeStoreProject.Migrations
 
                     b.Property<string>("City")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("varchar(255)");
 
-                    b.Property<int>("PostCode")
-                        .HasColumnType("int");
+                    b.Property<string>("PostCode")
+                        .IsRequired()
+                        .HasColumnType("varchar(255)");
 
                     b.Property<string>("Street")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("varchar(255)");
 
                     b.HasKey("Id");
 
@@ -52,7 +53,7 @@ namespace FakeStoreProject.Migrations
                         {
                             Id = 1,
                             City = "Reykjavik",
-                            PostCode = 101,
+                            PostCode = "101",
                             Street = "Store Street"
                         });
                 });
@@ -67,7 +68,7 @@ namespace FakeStoreProject.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("varchar(255)");
 
                     b.HasKey("Id");
 
@@ -94,11 +95,11 @@ namespace FakeStoreProject.Migrations
 
                     b.Property<string>("FirstName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("varchar(255)");
 
                     b.Property<string>("LastName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("varchar(255)");
 
                     b.HasKey("Id");
 
@@ -197,7 +198,8 @@ namespace FakeStoreProject.Migrations
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
 
                     b.Property<string>("ImgUrl")
                         .IsRequired()
@@ -211,7 +213,7 @@ namespace FakeStoreProject.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("varchar(255)");
 
                     b.Property<int>("StockId")
                         .HasColumnType("int");
@@ -246,19 +248,24 @@ namespace FakeStoreProject.Migrations
 
                     b.Property<string>("FirstName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("varchar(255)");
 
                     b.Property<string>("LastName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("varchar(255)");
 
                     b.Property<int>("ManagerId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("StaffId")
                         .HasColumnType("int");
 
                     b.Property<int>("StoreId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("StaffId");
 
                     b.HasIndex("StoreId");
 
@@ -319,15 +326,15 @@ namespace FakeStoreProject.Migrations
 
                     b.Property<string>("Email")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("varchar(255)");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("varchar(255)");
 
                     b.Property<string>("Phone")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("varchar(255)");
 
                     b.HasKey("Id");
 
@@ -388,6 +395,10 @@ namespace FakeStoreProject.Migrations
 
             modelBuilder.Entity("FakeStoreProject.Models.Staff", b =>
                 {
+                    b.HasOne("FakeStoreProject.Models.Staff", null)
+                        .WithMany("Staffs")
+                        .HasForeignKey("StaffId");
+
                     b.HasOne("FakeStoreProject.Models.Store", null)
                         .WithMany("Staffs")
                         .HasForeignKey("StoreId")
@@ -424,6 +435,11 @@ namespace FakeStoreProject.Migrations
             modelBuilder.Entity("FakeStoreProject.Models.Product", b =>
                 {
                     b.Navigation("ItemOrders");
+                });
+
+            modelBuilder.Entity("FakeStoreProject.Models.Staff", b =>
+                {
+                    b.Navigation("Staffs");
                 });
 
             modelBuilder.Entity("FakeStoreProject.Models.Store", b =>

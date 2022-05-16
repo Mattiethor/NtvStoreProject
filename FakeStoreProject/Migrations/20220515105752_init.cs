@@ -14,9 +14,9 @@ namespace FakeStoreProject.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Street = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    City = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    PostCode = table.Column<int>(type: "int", nullable: false)
+                    Street = table.Column<string>(type: "varchar(255)", nullable: false),
+                    City = table.Column<string>(type: "varchar(255)", nullable: false),
+                    PostCode = table.Column<string>(type: "varchar(255)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -29,7 +29,7 @@ namespace FakeStoreProject.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Name = table.Column<string>(type: "varchar(255)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -57,8 +57,8 @@ namespace FakeStoreProject.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    FirstName = table.Column<string>(type: "varchar(255)", nullable: false),
+                    LastName = table.Column<string>(type: "varchar(255)", nullable: false),
                     AddressId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -78,9 +78,9 @@ namespace FakeStoreProject.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Phone = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Name = table.Column<string>(type: "varchar(255)", nullable: false),
+                    Phone = table.Column<string>(type: "varchar(255)", nullable: false),
+                    Email = table.Column<string>(type: "varchar(255)", nullable: false),
                     AddressId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -100,12 +100,12 @@ namespace FakeStoreProject.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Name = table.Column<string>(type: "varchar(255)", nullable: false),
                     CategoryId = table.Column<int>(type: "int", nullable: false),
                     StockId = table.Column<int>(type: "int", nullable: false),
                     ListPrice = table.Column<int>(type: "int", nullable: false),
                     ModelYear = table.Column<int>(type: "int", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
                     ImgUrl = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
@@ -152,13 +152,19 @@ namespace FakeStoreProject.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     StoreId = table.Column<int>(type: "int", nullable: false),
-                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ManagerId = table.Column<int>(type: "int", nullable: false)
+                    FirstName = table.Column<string>(type: "varchar(255)", nullable: false),
+                    LastName = table.Column<string>(type: "varchar(255)", nullable: false),
+                    ManagerId = table.Column<int>(type: "int", nullable: false),
+                    StaffId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Staffs", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Staffs_Staffs_StaffId",
+                        column: x => x.StaffId,
+                        principalTable: "Staffs",
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Staffs_Stores_StoreId",
                         column: x => x.StoreId,
@@ -191,7 +197,7 @@ namespace FakeStoreProject.Migrations
             migrationBuilder.InsertData(
                 table: "Addresses",
                 columns: new[] { "Id", "City", "PostCode", "Street" },
-                values: new object[] { 1, "Reykjavik", 101, "Store Street" });
+                values: new object[] { 1, "Reykjavik", "101", "Store Street" });
 
             migrationBuilder.InsertData(
                 table: "Categories",
@@ -230,8 +236,8 @@ namespace FakeStoreProject.Migrations
 
             migrationBuilder.InsertData(
                 table: "Staffs",
-                columns: new[] { "Id", "FirstName", "LastName", "ManagerId", "StoreId" },
-                values: new object[] { 1, "Bob", "Staffmann", 0, 1 });
+                columns: new[] { "Id", "FirstName", "LastName", "ManagerId", "StaffId", "StoreId" },
+                values: new object[] { 1, "Bob", "Staffmann", 0, null, 1 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Customers_AddressId",
@@ -257,6 +263,11 @@ namespace FakeStoreProject.Migrations
                 name: "IX_Products_CategoryId",
                 table: "Products",
                 column: "CategoryId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Staffs_StaffId",
+                table: "Staffs",
+                column: "StaffId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Staffs_StoreId",
