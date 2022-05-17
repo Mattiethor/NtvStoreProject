@@ -21,7 +21,9 @@ public class Store
     public string Email { get; set; }
 
     [Required]
+
     public int AddressId { get; set; }
+    
 
     public List<Staff>? Staffs { get; set; }
 

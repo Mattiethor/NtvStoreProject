@@ -4,9 +4,9 @@ namespace FakeStoreProject.Data.Interfaces
 {
     public interface IRepository
     {
-        List<Product> GetAllProducts ();
+        List<Product> GetAllProducts();
 
-        Product GetProductById (int id);
+        Product GetProductById(int id);
 
 
     }
