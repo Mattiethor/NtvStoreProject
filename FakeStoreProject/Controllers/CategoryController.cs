@@ -67,7 +67,7 @@ namespace FakeStoreProject.Controllers
         }
         //Create category
         [HttpPost]
-        public async Task<IActionResult> CreateCategoryAsync([FromBody]Category category)
+        public async Task<IActionResult> CreateCategory([FromBody]Category category)
         {
             try
             {
@@ -82,6 +82,30 @@ namespace FakeStoreProject.Controllers
                     return BadRequest();
                 }
 
+            }
+            catch (Exception)
+            {
+
+                return StatusCode(500);
+            }
+        }
+
+        //Delete Category 
+        [HttpDelete]
+        [Route("{id}")]
+        public async Task<ActionResult<Category>> DeleteCategoryAsync(int id)
+        {
+            try
+            {
+                bool deleteSuccessful = await _repository.DeleteCategoryAsync(id);
+                if (!deleteSuccessful)
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    return NoContent();
+                }
             }
             catch (Exception)
             {

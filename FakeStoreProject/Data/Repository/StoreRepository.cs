@@ -100,19 +100,22 @@ namespace FakeStoreProject.Data.Interfaces
             {
                 product = await db.Products.FirstOrDefaultAsync(c => c.Id == id);
             }
-            
+            //ASK TEACHER TO FIX NOT FOUND ISSUE
             ProductDTO prodToReturn = new ProductDTO();
-            
-            {
-                prodToReturn.Id = product.Id;
-                prodToReturn.Name = product.Name;
-                prodToReturn.ListPrice = product.ListPrice;
-                prodToReturn.ImgUrl = product.ImgUrl;
-                prodToReturn.Description = product.Description;
-                prodToReturn.CategoryId = product.CategoryId;
-                prodToReturn.StockId = product.StockId;
-                prodToReturn.ModelYear = product.ModelYear;
+            if (prodToReturn != null) {
+                {
+                    prodToReturn.Id = product.Id;
+                    prodToReturn.Name = product.Name;
+                    prodToReturn.ListPrice = product.ListPrice;
+                    prodToReturn.ImgUrl = product.ImgUrl;
+                    prodToReturn.Description = product.Description;
+                    prodToReturn.CategoryId = product.CategoryId;
+                    prodToReturn.StockId = product.StockId;
+                    prodToReturn.ModelYear = product.ModelYear;
+                }
+
             }
+            
             
             return prodToReturn;
             
@@ -125,6 +128,61 @@ namespace FakeStoreProject.Data.Interfaces
             {
                 await db.Categories.AddAsync(category);
                 await db.SaveChangesAsync();
+            }
+        }
+
+        public async Task CreateProductAsync(Product product)
+        {
+            using (var db = _dbContext)
+            {
+                await db.Products.AddAsync(product);
+                await db.SaveChangesAsync();
+            }
+        }
+
+        //DELETE SECTION
+
+        //Uses the Product Id to find and remove the product
+        public async Task<bool> DeleteProductAsync(int id)
+        {
+            Product ProductToDelete;
+            using (var db = _dbContext)
+            {
+                ProductToDelete = await db.Products.FirstOrDefaultAsync(x => x.Id == id);
+                if (ProductToDelete == null)
+                {
+                    //False means the item was not deleted.
+                    return false;
+                }
+                else
+                {
+                    db.Products.Remove(ProductToDelete);
+                    await db.SaveChangesAsync();
+                    return true;
+                }
+                    
+            }
+            
+        }
+
+        public async Task <bool> DeleteCategoryAsync(int id)
+        {
+            Category CategoryToDelete;
+            using (var db = _dbContext)
+            {
+                CategoryToDelete = await db.Categories.FirstOrDefaultAsync(x => x.Id == id);
+                if (CategoryToDelete == null)
+                {
+                    //False means the item was not deleted.
+                    return false;
+                }
+                else
+                {
+                    db.Categories.Remove(CategoryToDelete);
+                    await db.SaveChangesAsync();
+                    return true;
+                }
+
             }
         }
     }
