@@ -10,8 +10,7 @@ namespace FakeStoreProject.Data.Interfaces
 
          Task<ProductDTO> GetProductByIdAsync(int id);
 
+         Task <List<Category>> GetAllCategoriesAsync();
 
-
-        //Task<Category> GetCategoryByIdAsync(int id);
     }
 }

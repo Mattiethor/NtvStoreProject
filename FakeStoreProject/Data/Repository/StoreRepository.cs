@@ -8,12 +8,28 @@ namespace FakeStoreProject.Data.Interfaces
     {
         private FakeStoreDbContext _dbContext;
 
+
+        
         public StoreRepository()
         {
             _dbContext = new FakeStoreDbContext();
         }
 
 
+        public async Task <List<Category>> GetAllCategoriesAsync()
+        {
+            List<Category> categories;
+            using(var db = _dbContext)
+            {
+                categories = await db.Categories.ToListAsync();
+            }
+
+            return categories;
+
+            
+        }
+
+        //Get all products
 
         public async Task <List<Product>> GetAllProductsAsync()
         {

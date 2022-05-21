@@ -14,6 +14,6 @@ namespace FakeStoreProject.Models
         [Column(TypeName = "varchar(255)")]
         public string Name { get; set; }
 
-        public List<Product> Products { get; set; }
+        public List<Product>? Products { get; set; }
     }
 }
