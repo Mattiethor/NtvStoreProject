@@ -12,5 +12,9 @@ namespace FakeStoreProject.Data.Interfaces
 
          Task <List<Category>> GetAllCategoriesAsync();
 
+         Task<Category> GetCategoryByIdAsync(int id);
+
+
+
     }
 }

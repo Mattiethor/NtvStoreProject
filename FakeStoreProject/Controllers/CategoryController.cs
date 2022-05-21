@@ -19,14 +19,43 @@ namespace FakeStoreProject.Controllers
         }
 
 
-        //TODO see if i can add a list of Products tied to this
+        
         [HttpGet]
         public async Task<ActionResult<List<Category>>> GetAllCategoriesAsync()
         {
             try
             {
+
+
                 List<Category> product = await _repository.GetAllCategoriesAsync();
                 return Ok(product);
+
+            }
+            catch (Exception)
+            {
+
+                return StatusCode(500);
+            }
+
+        }
+
+        [HttpGet]
+        [Route("{id}")]
+        public async Task<ActionResult<ProductDTO>> GetCategoryByIdAsync(int id)
+        {
+
+            try
+            {
+
+                Category category = await _repository.GetCategoryByIdAsync(id);
+                if (category == null)
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    return Ok(category);
+                }
 
             }
             catch (Exception)

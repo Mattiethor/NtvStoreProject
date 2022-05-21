@@ -21,7 +21,7 @@ namespace FakeStoreProject.Controllers
 
         //Get to get all Products async.
         [HttpGet]
-        public async Task<ActionResult<List<Product>>> GetAllItemsAsync()
+        public async Task<ActionResult<List<Product>>> GetAllProductsAsync()
         {
             try
             {
