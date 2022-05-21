@@ -1,13 +1,17 @@
 ﻿using FakeStoreProject.Models;
+using FakeStoreProject.Models.DTO;
 
 namespace FakeStoreProject.Data.Interfaces
 {
     public interface IRepository
     {
-        List<Product> GetAllProducts();
+        //TODO making Products async
+        Task<List<Product>> GetAllProductsAsync();
 
-        Product GetProductById(int id);
+         Task<ProductDTO> GetProductByIdAsync(int id);
 
 
+
+        //Task<Category> GetCategoryByIdAsync(int id);
     }
 }

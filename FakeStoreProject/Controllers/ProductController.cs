@@ -1,8 +1,8 @@
 ﻿
 using FakeStoreProject.Data.Interfaces;
 using FakeStoreProject.Models;
+using FakeStoreProject.Models.DTO;
 using Microsoft.AspNetCore.Mvc;
-
 
 namespace FakeStoreProject.Controllers
 {
@@ -19,14 +19,14 @@ namespace FakeStoreProject.Controllers
         }
 
 
-        //TODO add a DTO to remove itemOrders from the GET
+        //Get to get all Products async.
         [HttpGet]
-        public ActionResult<List<Product>> GetAllItems()
+        public async Task<ActionResult<List<Product>>> GetAllItemsAsync()
         {
             try
             {
-                List<Product> product = _repository.GetAllProducts();
-                return product;
+                List<Product> product = await _repository.GetAllProductsAsync();
+                return Ok(product);
 
             }
             catch (Exception)
@@ -37,7 +37,34 @@ namespace FakeStoreProject.Controllers
 
         }
 
+        //Get to get  Products by id async.
 
+        [HttpGet]
+        [Route("{id}")]
+        public async Task<ActionResult<ProductDTO>> GetProductByIdAsync(int id)
+        {
 
+            try
+            {
+
+                ProductDTO prod = await _repository.GetProductByIdAsync(id);
+                if (prod == null)
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    return Ok(prod);
+                }
+
+            }
+            catch (Exception)
+            {
+
+                return StatusCode(500);
+            }
+
+        }
     }
 }
+    

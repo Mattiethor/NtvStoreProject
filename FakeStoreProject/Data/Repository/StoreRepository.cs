@@ -1,4 +1,6 @@
 ﻿using FakeStoreProject.Models;
+using FakeStoreProject.Models.DTO;
+using Microsoft.EntityFrameworkCore;
 
 namespace FakeStoreProject.Data.Interfaces
 {
@@ -13,20 +15,41 @@ namespace FakeStoreProject.Data.Interfaces
 
 
 
-        public List<Product> GetAllProducts()
+        public async Task <List<Product>> GetAllProductsAsync()
         {
             List<Product> products;
             using(var db = _dbContext)
             {
-                products = db.Products.ToList();
+                products = await db.Products.ToListAsync();
             }
             return products;
             
-        }
 
-        public Product GetProductById(int id)
+
+        }
+        //Ask teacher about getting Category name
+        public async Task <ProductDTO> GetProductByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            Product product;
+            using var db = _dbContext;
+            {
+                product = await db.Products.FirstOrDefaultAsync(c => c.Id == id);
+            }
+            
+            ProductDTO prodToReturn = new ProductDTO();
+
+            prodToReturn.Id = product.Id;
+            prodToReturn.Name = product.Name;
+            prodToReturn.ListPrice = product.ListPrice;
+            prodToReturn.ImgUrl = product.ImgUrl;
+            prodToReturn.Description = product.Description;
+            prodToReturn.CategoryId = product.CategoryId;
+            prodToReturn.StockId = product.StockId;
+            prodToReturn.ModelYear = product.ModelYear;
+            
+            return prodToReturn;
+            
+
         }
     }
 }
