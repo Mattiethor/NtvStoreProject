@@ -40,24 +40,31 @@ namespace FakeStoreProject.Data.Interfaces
                 category = await db.Categories.Include(p => p.Products).FirstOrDefaultAsync(c => c.Id == id);
             }
 
-            Category categoryToReturn = category;
-            List<ProductDTO> p  = new List<ProductDTO>();
             
 
+            Category categoryToReturn = category;
+            List<ProductDTO> p  = new List<ProductDTO>();
 
-            foreach (Product product in category.Products)
+            //only runs if category.id exists when making a get request.
+            if (categoryToReturn != null)
             {
-                ProductDTO prodToReturn = new ProductDTO();
-                prodToReturn.Id = product.Id;
-                prodToReturn.Name = product.Name;
-                prodToReturn.ListPrice = product.ListPrice;
-                prodToReturn.ImgUrl = product.ImgUrl;
-                prodToReturn.Description = product.Description;
-                prodToReturn.CategoryId = product.CategoryId;
-                prodToReturn.StockId = product.StockId;
-                prodToReturn.ModelYear = product.ModelYear;
-                p.Add(prodToReturn);
+                foreach (Product product in category.Products)
+                {
+                    ProductDTO prodToReturn = new ProductDTO();
+                    prodToReturn.Id = product.Id;
+                    prodToReturn.Name = product.Name;
+                    prodToReturn.ListPrice = product.ListPrice;
+                    prodToReturn.ImgUrl = product.ImgUrl;
+                    prodToReturn.Description = product.Description;
+                    prodToReturn.CategoryId = product.CategoryId;
+                    prodToReturn.StockId = product.StockId;
+                    prodToReturn.ModelYear = product.ModelYear;
+                    p.Add(prodToReturn);
+                }
+
             }
+
+            
             
             
 
@@ -95,19 +102,30 @@ namespace FakeStoreProject.Data.Interfaces
             }
             
             ProductDTO prodToReturn = new ProductDTO();
-
-            prodToReturn.Id = product.Id;
-            prodToReturn.Name = product.Name;
-            prodToReturn.ListPrice = product.ListPrice;
-            prodToReturn.ImgUrl = product.ImgUrl;
-            prodToReturn.Description = product.Description;
-            prodToReturn.CategoryId = product.CategoryId;
-            prodToReturn.StockId = product.StockId;
-            prodToReturn.ModelYear = product.ModelYear;
+            
+            {
+                prodToReturn.Id = product.Id;
+                prodToReturn.Name = product.Name;
+                prodToReturn.ListPrice = product.ListPrice;
+                prodToReturn.ImgUrl = product.ImgUrl;
+                prodToReturn.Description = product.Description;
+                prodToReturn.CategoryId = product.CategoryId;
+                prodToReturn.StockId = product.StockId;
+                prodToReturn.ModelYear = product.ModelYear;
+            }
             
             return prodToReturn;
             
 
+        }
+        //CREATE SECTION
+        public async Task CreateCategoryAsync(Category category)
+        {
+            using (var db = _dbContext)
+            {
+                await db.Categories.AddAsync(category);
+                await db.SaveChangesAsync();
+            }
         }
     }
 }
