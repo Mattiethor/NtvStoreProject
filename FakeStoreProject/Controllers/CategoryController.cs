@@ -114,6 +114,33 @@ namespace FakeStoreProject.Controllers
             }
         }
 
+        //UPDATE SECTION
+        [HttpPut]
+        [Route("{id}")]
+        //Put id before FromBody, the id does not get updated.
+        public async Task<ActionResult<Category>> UpdateCategoryAsync(int id, [FromBody] Category category)
+        {
+            try
+            {
+                Category categoryToUpdate = await _repository.UpdateCategoryAsync(id, category);
+                if (categoryToUpdate == null)
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    return CreatedAtAction(nameof(GetCategoryByIdAsync), new { categoryToUpdate.Id }, category);
+                }
+
+
+            }
+            catch (Exception)
+            {
+                return StatusCode(500);
+            }
+
+        }
+
     }
 
 }

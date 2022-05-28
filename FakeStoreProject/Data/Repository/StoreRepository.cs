@@ -210,6 +210,28 @@ namespace FakeStoreProject.Data.Interfaces
             }
         }
 
+        public async Task<Category> UpdateCategoryAsync(int id, Category category)
+        {
+            {
+                Category categoryToUpdate;
+                using var db = _dbContext;
+                {
+                    categoryToUpdate = await db.Categories.FirstOrDefaultAsync(x => x.Id == id);
+                    if (categoryToUpdate == null)
+                    {
+                        return null;
+                    }
 
+                    categoryToUpdate.Name = category.Name;
+
+
+
+                   
+
+                    await db.SaveChangesAsync();
+                    return categoryToUpdate;
+                }
+            }
+        }
     }
 }

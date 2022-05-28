@@ -24,9 +24,13 @@ namespace FakeStoreProject.Data.Interfaces
 
         Task<Product> UpdateProductAsync(int id, Product product);
 
+        Task<Category> UpdateCategoryAsync(int id, Category category);
 
 
 
-        
+
+
+
+
     }
 }
