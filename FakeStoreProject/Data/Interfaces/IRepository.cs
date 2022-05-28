@@ -22,6 +22,10 @@ namespace FakeStoreProject.Data.Interfaces
 
         Task<bool> DeleteCategoryAsync(int id);
 
+        Task<Product> UpdateProductAsync(int id, Product product);
+
+
+
 
         
     }

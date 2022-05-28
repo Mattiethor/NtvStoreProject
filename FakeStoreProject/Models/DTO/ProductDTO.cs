@@ -5,12 +5,16 @@ namespace FakeStoreProject.Models.DTO
 {
     public class ProductDTO
     {
+        public ProductDTO()
+        {
+            Category Category = new Category();
+        }
         public int Id { get; set; }
         [Required]
         [Column(TypeName = "varchar(255)")]
         public string Name { get; set; }
         [Required]
-        public int CategoryId { get; set; }
+        public string CategoryName { get; set; }
 
         public int StockId { get; set; }
         [Required]

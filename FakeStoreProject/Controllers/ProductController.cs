@@ -117,6 +117,31 @@ namespace FakeStoreProject.Controllers
             }
         }
 
+        //update product
+        [HttpPut]
+        [Route("{id}")]
+        //Put id before FromBody, the id does not get updated.
+        public async Task <ActionResult<Product>> UpdateProductAsync(int id, [FromBody] Product product)
+        {
+            try
+            {
+                Product productToUpdate = await _repository.UpdateProductAsync(id, product);
+                if (productToUpdate == null)
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    return CreatedAtAction(nameof(GetProductByIdAsync), new {productToUpdate.Id}, product);
+                }
+
+                
+            }catch (Exception)
+            {
+                return StatusCode(500);
+            }
+
+        }
 
     }
 }
