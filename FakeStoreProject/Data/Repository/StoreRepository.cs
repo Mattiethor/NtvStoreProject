@@ -85,7 +85,7 @@ namespace FakeStoreProject.Data.Interfaces
 
 
 
-        
+
         public async Task<ProductDTO> GetProductByIdAsync(int id)
         {
             Product product;
@@ -96,7 +96,7 @@ namespace FakeStoreProject.Data.Interfaces
 
                 category = await db.Categories.FirstOrDefaultAsync(c => c.Id == product.CategoryId);
             }
-            
+
             ProductDTO prodToReturn = new ProductDTO();
 
 
@@ -118,6 +118,31 @@ namespace FakeStoreProject.Data.Interfaces
 
 
         }
+        public async Task<List<Stock>> GetAllStocksAsync()
+        {
+            List<Stock> stocks;
+
+            using var db = _dbContext;
+            {
+                stocks = await db.Stocks.ToListAsync();
+            }
+
+            return stocks;
+        }
+
+        public async Task<Stock> GetStockByIdAsync(int id)
+        {
+            Stock stockToReturn;
+
+            using var db = _dbContext;
+            {
+                stockToReturn = await db.Stocks.FirstOrDefaultAsync(c => c.Id == id);
+            }
+
+            return stockToReturn;
+        }
+
+
         //CREATE SECTION
         public async Task CreateCategoryAsync(Category category)
         {
@@ -192,7 +217,7 @@ namespace FakeStoreProject.Data.Interfaces
             using var db = _dbContext;
             {
                 productToUpdate = await db.Products.FirstOrDefaultAsync(x => x.Id == id);
-                if(productToUpdate == null)
+                if (productToUpdate == null)
                 {
                     return null;
                 }
@@ -226,12 +251,16 @@ namespace FakeStoreProject.Data.Interfaces
 
 
 
-                   
+
 
                     await db.SaveChangesAsync();
                     return categoryToUpdate;
                 }
             }
         }
+
+
+
+
     }
 }

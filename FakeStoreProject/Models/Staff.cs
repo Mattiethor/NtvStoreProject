@@ -10,9 +10,9 @@ namespace FakeStoreProject.Models
         {
             Staffs = new List<Staff>();
         }
-        
+
         public int Id { get; set; }
-        
+
         [Required]
         public int StoreId { get; set; }
         [Required]
@@ -27,7 +27,7 @@ namespace FakeStoreProject.Models
         //Used to assign a manager. 
         public List<Staff> Staffs { get; set; }
 
-       
+
 
     }
 }

@@ -7,11 +7,11 @@ public class Store
     public Store()
     {
         Staffs = new List<Staff>();
-        
-        
+
+
     }
     public int Id { get; set; }
-    
+
     [Required]
     [Column(TypeName = "varchar(255)")]
     public string Name { get; set; }
@@ -23,7 +23,7 @@ public class Store
     [Required]
 
     public int AddressId { get; set; }
-    
+
 
     public List<Staff>? Staffs { get; set; }
 

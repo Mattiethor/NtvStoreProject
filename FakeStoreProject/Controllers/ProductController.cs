@@ -63,7 +63,7 @@ namespace FakeStoreProject.Controllers
 
                 return StatusCode(500);
             }
-            
+
         }
 
 
@@ -121,7 +121,7 @@ namespace FakeStoreProject.Controllers
         [HttpPut]
         [Route("{id}")]
         //Put id before FromBody, the id does not get updated.
-        public async Task <ActionResult<Product>> UpdateProductAsync(int id, [FromBody] Product product)
+        public async Task<ActionResult<Product>> UpdateProductAsync(int id, [FromBody] Product product)
         {
             try
             {
@@ -132,11 +132,12 @@ namespace FakeStoreProject.Controllers
                 }
                 else
                 {
-                    return CreatedAtAction(nameof(GetProductByIdAsync), new {productToUpdate.Id}, product);
+                    return CreatedAtAction(nameof(GetProductByIdAsync), new { productToUpdate.Id }, product);
                 }
 
-                
-            }catch (Exception)
+
+            }
+            catch (Exception)
             {
                 return StatusCode(500);
             }
@@ -145,4 +146,4 @@ namespace FakeStoreProject.Controllers
 
     }
 }
-    
+

@@ -8,7 +8,7 @@ namespace FakeStoreProject.Models
 
         public Customer()
         {
-            Orders = new List<Order>();  
+            Orders = new List<Order>();
         }
         public int Id { get; set; }
         [Column(TypeName = "varchar(255)")]
@@ -18,7 +18,7 @@ namespace FakeStoreProject.Models
 
         [Required]
         public int AddressId { get; set; }
-        
+
 
         public List<Order> Orders { get; set; }
     }

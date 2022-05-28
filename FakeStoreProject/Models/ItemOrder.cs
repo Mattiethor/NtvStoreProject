@@ -13,7 +13,7 @@ namespace FakeStoreProject.Models
 
         public int Quantity { get; set; }
 
-       
+
 
     }
 }

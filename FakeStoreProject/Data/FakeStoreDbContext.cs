@@ -43,26 +43,26 @@ namespace FakeStoreProject.Data
         {
 
 
-             //test address
+            //test address
             modelBuilder.Entity<Address>().HasData(
                      new Address { Id = 1, City = "Reykjavik", PostCode = "101", Street = "Store Street" },
                      new Address { Id = 2, City = "New York", PostCode = "NY505", Street = "Customer Street" },
                      new Address { Id = 3, City = "Copehagen", PostCode = "CP808", Street = "Danish Streen" });
-            
+
             //test store
-            modelBuilder.Entity<Store>().HasData(new Store { Id = 1, Name = "FakeStore", Email = "Fakestore@fakestore.com", Phone = "444-5555", AddressId =  1 });
+            modelBuilder.Entity<Store>().HasData(new Store { Id = 1, Name = "FakeStore", Email = "Fakestore@fakestore.com", Phone = "444-5555", AddressId = 1 });
 
             //test Category
             modelBuilder.Entity<Category>().HasData(
-                new Category { Id = 1, Name = "Summer" }, 
+                new Category { Id = 1, Name = "Summer" },
                 new Category { Id = 2, Name = "Bedroom" },
                 new Category { Id = 3, Name = "Living Room" }
-            
+
             );
 
             //test product
             modelBuilder.Entity<Product>().HasData(
-                new Product {Id = 1, StockId = 1, Name = "Summer Chair", CategoryId = 1, Description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi sit amet nisi lacus. Aenean eget felis tempor, blandit velit vel, dictum est. Vestibulum sed diam vulputate, commodo ligula aliquet, dictum mauris. Nullam imperdiet elementum nisi, a venenatis nulla tempus quis. Sed tempor gravida felis. Cras porttitor eleifend auctor. ", ImgUrl = "https://media.istockphoto.com/photos/deck-chair-picture-id918244930", ListPrice = 100, ModelYear = 2000 },
+                new Product { Id = 1, StockId = 1, Name = "Summer Chair", CategoryId = 1, Description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi sit amet nisi lacus. Aenean eget felis tempor, blandit velit vel, dictum est. Vestibulum sed diam vulputate, commodo ligula aliquet, dictum mauris. Nullam imperdiet elementum nisi, a venenatis nulla tempus quis. Sed tempor gravida felis. Cras porttitor eleifend auctor. ", ImgUrl = "https://media.istockphoto.com/photos/deck-chair-picture-id918244930", ListPrice = 100, ModelYear = 2000 },
                 new Product { Id = 2, StockId = 2, Name = "Outdoor set", CategoryId = 1, Description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent posuere elementum sapien ac suscipit. Integer hendrerit erat sed lorem varius, quis consectetur enim feugiat.", ImgUrl = "https://media.istockphoto.com/photos/patio-table-set-picture-id903469302", ListPrice = 500, ModelYear = 2004 },
                 new Product { Id = 3, StockId = 3, Name = "Table Set", CategoryId = 1, Description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent posuere elementum sapien ac suscipit. Integer hendrerit erat sed lorem varius, quis consectetur enim feugiat. Etiam imperdiet nulla et justo laoreet, nec iaculis purus fringilla. Etiam eget erat vitae ipsum sodales commodo. Praesent at erat maximus, aliquam enim.", ImgUrl = "https://media.istockphoto.com/photos/table-and-chairs-picture-id645618262", ListPrice = 670, ModelYear = 1990 },
                 new Product { Id = 4, StockId = 4, Name = "Summer Parasol", CategoryId = 1, Description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent posuere elementum sapien ac suscipit. Integer hendrerit erat sed lorem varius, quis consectetur enim feugiat. Etiam imperdiet nulla et justo laoreet, nec iaculis purus fringilla. Etiam eget erat vitae ipsum sodales commodo. Praesent at erat maximus, aliquam enim.", ImgUrl = "https://media.istockphoto.com/photos/parasol-picture-id187264061", ListPrice = 400, ModelYear = 1980 },
@@ -103,7 +103,7 @@ namespace FakeStoreProject.Data
 
             );
             //Test costumer
-            modelBuilder.Entity<Customer>().HasData(new Customer { Id = 1, FirstName = "Bob", LastName = "Customer", AddressId = 2});
+            modelBuilder.Entity<Customer>().HasData(new Customer { Id = 1, FirstName = "Bob", LastName = "Customer", AddressId = 2 });
 
             //Test Staff
             modelBuilder.Entity<Staff>().HasData(new Staff { Id = 1, FirstName = "Bob", LastName = "Staffmann", StoreId = 1 });

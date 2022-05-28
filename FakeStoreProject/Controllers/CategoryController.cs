@@ -1,7 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using FakeStoreProject.Data.Interfaces;
+﻿using FakeStoreProject.Data.Interfaces;
 using FakeStoreProject.Models;
 using FakeStoreProject.Models.DTO;
+using Microsoft.AspNetCore.Mvc;
 
 
 namespace FakeStoreProject.Controllers
@@ -19,7 +19,7 @@ namespace FakeStoreProject.Controllers
         }
 
 
-        
+
         [HttpGet]
         public async Task<ActionResult<List<Category>>> GetAllCategoriesAsync()
         {
@@ -67,7 +67,7 @@ namespace FakeStoreProject.Controllers
         }
         //Create category
         [HttpPost]
-        public async Task<IActionResult> CreateCategory([FromBody]Category category)
+        public async Task<IActionResult> CreateCategory([FromBody] Category category)
         {
             try
             {
