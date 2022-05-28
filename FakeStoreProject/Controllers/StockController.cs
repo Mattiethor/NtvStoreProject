@@ -59,6 +59,81 @@ namespace FakeStoreProject.Controllers
             }
 
         }
+
+        //Create
+        [HttpPost]
+        public async Task<IActionResult> CreateStockAsync([FromBody] Stock stock)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    await _repository.CreateStockAsync(stock);
+                    //ASK TEACHER ABOUT THIS
+                    return CreatedAtAction(nameof(GetStockByIdAsync), new { stock.Id }, stock);
+                }
+                else
+                {
+                    return BadRequest();
+                }
+
+            }
+            catch (Exception)
+            {
+
+                return StatusCode(500);
+            }
+        }
+        //Delete  
+        [HttpDelete]
+        [Route("{id}")]
+        public async Task<ActionResult<Stock>> DeleteStockAsync(int id)
+        {
+            try
+            {
+                bool deleteSuccessful = await _repository.DeleteStockAsync(id);
+                if (!deleteSuccessful)
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    return NoContent();
+                }
+            }
+            catch (Exception)
+            {
+
+                return StatusCode(500);
+            }
+        }
+
+        //update 
+        [HttpPut]
+        [Route("{id}")]
+        //Put id before FromBody, the id does not get updated.
+        public async Task<ActionResult<Stock>> UpdateStockAsync(int id, [FromBody] Stock stock)
+        {
+            try
+            {
+                Stock stockToUpdate = await _repository.UpdateStockAsync(id, stock);
+                if (stockToUpdate == null)
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    return CreatedAtAction(nameof(GetStockByIdAsync), new { stockToUpdate.Id }, stock);
+                }
+
+
+            }
+            catch (Exception)
+            {
+                return StatusCode(500);
+            }
+
+        }
     }
 
 }

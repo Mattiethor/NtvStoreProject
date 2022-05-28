@@ -162,6 +162,16 @@ namespace FakeStoreProject.Data.Interfaces
             }
         }
 
+        public async Task CreateStockAsync(Stock stock)
+        {
+            using (var db = _dbContext)
+            {
+                await db.Stocks.AddAsync(stock);
+                await db.SaveChangesAsync();
+            }
+
+        }
+
         //DELETE SECTION
 
         //Uses the Product Id to find and remove the product
@@ -206,6 +216,28 @@ namespace FakeStoreProject.Data.Interfaces
                 }
 
             }
+        }
+
+        public async Task<bool> DeleteStockAsync(int id)
+        {
+            Stock StockToDelete;
+            using (var db = _dbContext)
+            {
+                StockToDelete = await db.Stocks.FirstOrDefaultAsync(x => x.Id == id);
+                if (StockToDelete == null)
+                {
+                    //False means the item was not deleted.
+                    return false;
+                }
+                else
+                {
+                    db.Stocks.Remove(StockToDelete);
+                    await db.SaveChangesAsync();
+                    return true;
+                }
+
+            }
+
         }
 
 
@@ -258,6 +290,32 @@ namespace FakeStoreProject.Data.Interfaces
                 }
             }
         }
+
+        public async Task<Stock> UpdateStockAsync(int id, Stock stock)
+        {
+            {
+                Stock stockToUpdate;
+                using var db = _dbContext;
+                {
+                    stockToUpdate = await db.Stocks.FirstOrDefaultAsync(x => x.Id == id);
+                    if (stockToUpdate == null)
+                    {
+                        return null;
+                    }
+
+                    stockToUpdate.Quantity = stock.Quantity;
+                    stockToUpdate.ProductsId = stock.ProductsId;
+                    stockToUpdate.StoreId = stock.StoreId;                                  
+
+                    await db.SaveChangesAsync();
+
+                    return stockToUpdate;
+                }
+            }
+        }
+
+
+
 
 
 
