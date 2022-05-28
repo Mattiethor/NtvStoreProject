@@ -143,6 +143,31 @@ namespace FakeStoreProject.Data.Interfaces
         }
 
 
+
+        public async Task<Store> GetStoreByIdAsync(int id)
+        {
+            {
+                Store storeToReturn;
+
+                using var db = _dbContext;
+                {
+                    storeToReturn = await db.Stores.FirstOrDefaultAsync(c => c.Id == id);
+                }
+
+                return storeToReturn;
+            }
+        }
+
+        public async Task<List<Store>> GetAllStoresAsync()
+        {
+            List<Store> store;
+            using (var db = _dbContext)
+            {
+                store = await db.Stores.ToListAsync();
+            }
+            return store;
+        }
+
         //CREATE SECTION
         public async Task CreateCategoryAsync(Category category)
         {
@@ -170,6 +195,15 @@ namespace FakeStoreProject.Data.Interfaces
                 await db.SaveChangesAsync();
             }
 
+        }
+
+        public async Task CreateStoreAsync(Store store)
+        {
+            using (var db = _dbContext)
+            {
+                await db.Stores.AddAsync(store);
+                await db.SaveChangesAsync();
+            }
         }
 
         //DELETE SECTION
@@ -240,6 +274,27 @@ namespace FakeStoreProject.Data.Interfaces
 
         }
 
+        public async Task<bool> DeleteStoreAsync(int id)
+        {
+            Store StoreToDelete;
+            using (var db = _dbContext)
+            {
+                StoreToDelete = await db.Stores.FirstOrDefaultAsync(x => x.Id == id);
+                if (StoreToDelete == null)
+                {
+                    //False means the item was not deleted.
+                    return false;
+                }
+                else
+                {
+                    db.Stores.Remove(StoreToDelete);
+                    await db.SaveChangesAsync();
+                    return true;
+                }
+
+            }
+        }
+
 
 
         //UPDATE SECTION
@@ -305,7 +360,7 @@ namespace FakeStoreProject.Data.Interfaces
 
                     stockToUpdate.Quantity = stock.Quantity;
                     stockToUpdate.ProductsId = stock.ProductsId;
-                    stockToUpdate.StoreId = stock.StoreId;                                  
+                    stockToUpdate.StoreId = stock.StoreId;
 
                     await db.SaveChangesAsync();
 
@@ -314,10 +369,31 @@ namespace FakeStoreProject.Data.Interfaces
             }
         }
 
+        public async Task<Store> UpdateStoreAsync(int id, Store store)
+        {
+            {
+                Store storeToUpdate;
+                using var db = _dbContext;
+                {
+                    storeToUpdate = await db.Stores.FirstOrDefaultAsync(x => x.Id == id);
+                    if (storeToUpdate == null)
+                    {
+                        return null;
+                    }
+
+                    storeToUpdate.Name = store.Name;
+                    storeToUpdate.Phone = store.Phone;
+                    storeToUpdate.Email = store.Email;
+                    storeToUpdate.AddressId = store.AddressId;
 
 
 
+                    await db.SaveChangesAsync();
 
+                    return storeToUpdate;
+                }
+            }
+        }
 
 
     }

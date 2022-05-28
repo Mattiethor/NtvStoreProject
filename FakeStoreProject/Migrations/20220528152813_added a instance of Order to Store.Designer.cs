@@ -4,6 +4,7 @@ using FakeStoreProject.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FakeStoreProject.Migrations
 {
     [DbContext(typeof(FakeStoreDbContext))]
-    partial class FakeStoreDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220528152813_added a instance of Order to Store")]
+    partial class addedainstanceofOrdertoStore
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

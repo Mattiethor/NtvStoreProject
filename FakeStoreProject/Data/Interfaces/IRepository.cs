@@ -41,5 +41,18 @@ namespace FakeStoreProject.Data.Interfaces
 
         Task<Stock> UpdateStockAsync(int id, Stock stock);
 
+        //Store
+
+        Task<List<Store>> GetAllStoresAsync();
+        Task<Store> GetStoreByIdAsync(int id);
+
+        Task CreateStoreAsync(Store store);
+
+        Task<bool> DeleteStoreAsync(int id);
+
+        Task<Store> UpdateStoreAsync(int id, Store store);
+
+
+
     }
 }

@@ -8,6 +8,8 @@ public class Store
     {
         Staffs = new List<Staff>();
 
+        Orders = new List<Order>();
+
 
     }
     public int Id { get; set; }
