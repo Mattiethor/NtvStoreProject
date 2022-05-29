@@ -82,5 +82,15 @@ namespace FakeStoreProject.Data.Interfaces
 
         Task<Customer> UpdateCustomerAsync(int id, Customer customer);
 
+        //ItemOrder
+        Task<List<ItemOrder>> GetAllItemOrdersAsync();
+        Task<ItemOrder> GetItemOrderByIdAsync(int id);
+
+        Task CreateItemOrderAsync(ItemOrder itemOrder);
+
+        Task<bool> DeleteItemOrderAsync(int id);
+
+        Task<ItemOrder> UpdateItemOrderAsync(int id, ItemOrder itemOrder);
+
     }
 }

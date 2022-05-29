@@ -599,5 +599,84 @@ namespace FakeStoreProject.Data.Interfaces
                 }
             }
         }
+
+        //ItemOrder
+
+        public async Task<List<ItemOrder>> GetAllItemOrdersAsync()
+        {
+            List<ItemOrder> itemOrders;
+            using (var db = _dbContext)
+            {
+                itemOrders = await db.ItemsOrders.ToListAsync();
+            }
+
+            return itemOrders;
+        }
+
+        public async Task<ItemOrder> GetItemOrderByIdAsync(int id)
+        {
+            {
+
+                ItemOrder itemOrder;
+
+                using var db = _dbContext;
+                {
+                    itemOrder = await db.ItemsOrders.FirstOrDefaultAsync(c => c.Id == id);
+                }
+
+                return itemOrder;
+            }
+        }
+
+        public async Task CreateItemOrderAsync(ItemOrder itemOrder)
+        {
+            using (var db = _dbContext)
+            {
+                await db.ItemsOrders.AddAsync(itemOrder);
+                await db.SaveChangesAsync();
+            }
+        }
+
+        public async Task<bool> DeleteItemOrderAsync(int id)
+        {
+            ItemOrder itemOrder;
+            using (var db = _dbContext)
+            {
+                itemOrder = await db.ItemsOrders.FirstOrDefaultAsync(x => x.Id == id);
+                if (itemOrder == null)
+                {
+                    //False means the item was not deleted.
+                    return false;
+                }
+                else
+                {
+                    db.ItemsOrders.Remove(itemOrder);
+                    await db.SaveChangesAsync();
+                    return true;
+                }
+            }
+        }
+
+        public async Task<ItemOrder> UpdateItemOrderAsync(int id, ItemOrder itemOrder)
+        {
+            {
+                ItemOrder itemOrderToUpdate;
+                using var db = _dbContext;
+                {
+                    itemOrderToUpdate = await db.ItemsOrders.FirstOrDefaultAsync(x => x.Id == id);
+                    if (itemOrderToUpdate == null)
+                    {
+                        return null;
+                    }
+                    itemOrderToUpdate.OrderId = itemOrder.OrderId;
+                    itemOrderToUpdate.ProductId = itemOrder.ProductId;
+                    itemOrderToUpdate.Quantity = itemOrder.Quantity;
+                    
+                    await db.SaveChangesAsync();
+
+                    return itemOrderToUpdate;
+                }
+            }
+        }
     }
 }
