@@ -678,5 +678,82 @@ namespace FakeStoreProject.Data.Interfaces
                 }
             }
         }
+
+        //Orders
+        public async Task<List<Order>> GetAllOrdersAsync()
+        {
+            List<Order> orders;
+            using (var db = _dbContext)
+            {
+                orders = await db.Orders.ToListAsync();
+            }
+
+            return orders;
+        }
+    
+
+        public async Task<Order> GetOrderByIdAsync(int id)
+        {
+            Order order;
+
+            using var db = _dbContext;
+            {
+                order = await db.Orders.FirstOrDefaultAsync(c => c.Id == id);
+            }
+
+            return order;
+        }
+
+        public async Task CreateOrderAsync(Order order)
+        {
+            using (var db = _dbContext)
+            {
+                await db.Orders.AddAsync(order);
+                await db.SaveChangesAsync();
+            }
+        }
+
+        public async Task<bool> DeleteOrderAsync(int id)
+        {
+            Order order;
+            using (var db = _dbContext)
+            {
+                order = await db.Orders.FirstOrDefaultAsync(x => x.Id == id);
+                if (order == null)
+                {
+                    //False means the item was not deleted.
+                    return false;
+                }
+                else
+                {
+                    db.Orders.Remove(order);
+                    await db.SaveChangesAsync();
+                    return true;
+                }
+            }
+        }
+
+        public async Task<Order> UpdateOrderAsync(int id, Order order)
+        {
+            {
+                Order orderToUpdate;
+                using var db = _dbContext;
+                {
+                    orderToUpdate = await db.Orders.FirstOrDefaultAsync(x => x.Id == id);
+                    if (orderToUpdate == null)
+                    {
+                        return null;
+                    }
+                    orderToUpdate.ItemOrderId = order.ItemOrderId;
+                    orderToUpdate.StoreId = order.StoreId;
+                    orderToUpdate.CustomerId = order.CustomerId;
+                    
+
+                    await db.SaveChangesAsync();
+
+                    return orderToUpdate;
+                }
+            }
+        }
     }
 }
