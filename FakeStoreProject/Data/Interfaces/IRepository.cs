@@ -52,7 +52,15 @@ namespace FakeStoreProject.Data.Interfaces
 
         Task<Store> UpdateStoreAsync(int id, Store store);
 
+        //Address 
+        Task<List<Address>> GetAllAddressesAsync();
+        Task<Address> GetAddressByIdAsync(int id);
 
+        Task CreateAddressAsync(Address address);
+
+        Task<bool> DeleteAddressAsync(int id);
+
+        Task<Address> UpdateAddressAsync(int id, Address address);
 
     }
 }

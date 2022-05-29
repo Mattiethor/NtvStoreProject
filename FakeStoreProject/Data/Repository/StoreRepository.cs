@@ -146,7 +146,7 @@ namespace FakeStoreProject.Data.Interfaces
 
         public async Task<Store> GetStoreByIdAsync(int id)
         {
-            {
+            
                 Store storeToReturn;
 
                 using var db = _dbContext;
@@ -155,7 +155,7 @@ namespace FakeStoreProject.Data.Interfaces
                 }
 
                 return storeToReturn;
-            }
+            
         }
 
         public async Task<List<Store>> GetAllStoresAsync()
@@ -166,6 +166,28 @@ namespace FakeStoreProject.Data.Interfaces
                 store = await db.Stores.ToListAsync();
             }
             return store;
+        }
+
+        public async Task<List<Address>> GetAllAddressesAsync()
+        {
+            List<Address> addresses;
+            using (var db = _dbContext)
+            {
+                addresses = await db.Addresses.ToListAsync();
+            }
+            return addresses;
+        }
+
+        public async Task<Address> GetAddressByIdAsync(int id)
+        {
+            Address addressToReturn;
+
+            using var db = _dbContext;
+            {
+                addressToReturn = await db.Addresses.FirstOrDefaultAsync(c => c.Id == id);
+            }
+
+            return addressToReturn;
         }
 
         //CREATE SECTION
@@ -202,6 +224,15 @@ namespace FakeStoreProject.Data.Interfaces
             using (var db = _dbContext)
             {
                 await db.Stores.AddAsync(store);
+                await db.SaveChangesAsync();
+            }
+        }
+
+        public async Task CreateAddressAsync(Address address)
+        {
+            using (var db = _dbContext)
+            {
+                await db.Addresses.AddAsync(address);
                 await db.SaveChangesAsync();
             }
         }
@@ -288,6 +319,27 @@ namespace FakeStoreProject.Data.Interfaces
                 else
                 {
                     db.Stores.Remove(StoreToDelete);
+                    await db.SaveChangesAsync();
+                    return true;
+                }
+
+            }
+        }
+
+        public async Task<bool> DeleteAddressAsync(int id)
+        {
+            Address addressToDelete;
+            using (var db = _dbContext)
+            {
+                addressToDelete = await db.Addresses.FirstOrDefaultAsync(x => x.Id == id);
+                if (addressToDelete == null)
+                {
+                    //False means the item was not deleted.
+                    return false;
+                }
+                else
+                {
+                    db.Addresses.Remove(addressToDelete);
                     await db.SaveChangesAsync();
                     return true;
                 }
@@ -395,6 +447,30 @@ namespace FakeStoreProject.Data.Interfaces
             }
         }
 
+        
+    
 
+        public async Task<Address> UpdateAddressAsync(int id, Address address)
+        {
+            {
+                Address addressToUpdate;
+                using var db = _dbContext;
+                {
+                    addressToUpdate = await db.Addresses.FirstOrDefaultAsync(x => x.Id == id);
+                    if (addressToUpdate == null)
+                    {
+                        return null;
+                    }
+
+                    addressToUpdate.Street = address.Street;
+                    addressToUpdate.PostCode = address.PostCode;
+                    addressToUpdate.City  = address.City;
+                    
+                    await db.SaveChangesAsync();
+        
+                    return addressToUpdate;
+                }
+            }
+        }
     }
 }
