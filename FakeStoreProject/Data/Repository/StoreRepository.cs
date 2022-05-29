@@ -24,13 +24,9 @@ namespace FakeStoreProject.Data.Interfaces
                 categories = await db.Categories.Include(p => p.Products).ToListAsync();
             }
 
-
-
             return categories;
 
-
         }
-
 
         public async Task<Category> GetCategoryByIdAsync(int id)
         {
@@ -39,9 +35,6 @@ namespace FakeStoreProject.Data.Interfaces
             {
                 category = await db.Categories.Include(p => p.Products).FirstOrDefaultAsync(c => c.Id == id);
             }
-
-
-
             Category categoryToReturn = category;
             List<ProductDTO> p = new List<ProductDTO>();
 
@@ -69,7 +62,6 @@ namespace FakeStoreProject.Data.Interfaces
         }
 
         //Get all products
-
         public async Task<List<Product>> GetAllProductsAsync()
         {
             List<Product> products;
@@ -78,14 +70,7 @@ namespace FakeStoreProject.Data.Interfaces
                 products = await db.Products.ToListAsync();
             }
             return products;
-
-
-
         }
-
-
-
-
         public async Task<ProductDTO> GetProductByIdAsync(int id)
         {
             Product product;
@@ -113,9 +98,7 @@ namespace FakeStoreProject.Data.Interfaces
 
                 return prodToReturn;
             }
-
             return null;
-
 
         }
         public async Task<List<Stock>> GetAllStocksAsync()
@@ -126,10 +109,8 @@ namespace FakeStoreProject.Data.Interfaces
             {
                 stocks = await db.Stocks.ToListAsync();
             }
-
             return stocks;
         }
-
         public async Task<Stock> GetStockByIdAsync(int id)
         {
             Stock stockToReturn;
@@ -138,24 +119,20 @@ namespace FakeStoreProject.Data.Interfaces
             {
                 stockToReturn = await db.Stocks.FirstOrDefaultAsync(c => c.Id == id);
             }
-
             return stockToReturn;
         }
 
-
-
         public async Task<Store> GetStoreByIdAsync(int id)
         {
-            
-                Store storeToReturn;
 
-                using var db = _dbContext;
-                {
-                    storeToReturn = await db.Stores.FirstOrDefaultAsync(c => c.Id == id);
-                }
+            Store storeToReturn;
 
-                return storeToReturn;
-            
+            using var db = _dbContext;
+            {
+                storeToReturn = await db.Stores.FirstOrDefaultAsync(c => c.Id == id);
+            }
+
+            return storeToReturn;
         }
 
         public async Task<List<Store>> GetAllStoresAsync()
@@ -186,7 +163,6 @@ namespace FakeStoreProject.Data.Interfaces
             {
                 addressToReturn = await db.Addresses.FirstOrDefaultAsync(c => c.Id == id);
             }
-
             return addressToReturn;
         }
 
@@ -314,7 +290,6 @@ namespace FakeStoreProject.Data.Interfaces
 
             }
         }
-
         public async Task<bool> DeleteStockAsync(int id)
         {
             Stock StockToDelete;
@@ -354,7 +329,6 @@ namespace FakeStoreProject.Data.Interfaces
                     await db.SaveChangesAsync();
                     return true;
                 }
-
             }
         }
 
@@ -375,7 +349,6 @@ namespace FakeStoreProject.Data.Interfaces
                     await db.SaveChangesAsync();
                     return true;
                 }
-
             }
         }
         public async Task<bool> DeleteStaffAsync(int id)
@@ -395,7 +368,6 @@ namespace FakeStoreProject.Data.Interfaces
                     await db.SaveChangesAsync();
                     return true;
                 }
-
             }
         }
 
@@ -498,8 +470,8 @@ namespace FakeStoreProject.Data.Interfaces
             }
         }
 
-        
-    
+
+
 
         public async Task<Address> UpdateAddressAsync(int id, Address address)
         {
@@ -515,10 +487,10 @@ namespace FakeStoreProject.Data.Interfaces
 
                     addressToUpdate.Street = address.Street;
                     addressToUpdate.PostCode = address.PostCode;
-                    addressToUpdate.City  = address.City;
-                    
+                    addressToUpdate.City = address.City;
+
                     await db.SaveChangesAsync();
-        
+
                     return addressToUpdate;
                 }
             }
@@ -540,11 +512,90 @@ namespace FakeStoreProject.Data.Interfaces
                     staffToUpdate.LastName = staff.LastName;
                     staffToUpdate.StoreId = staff.StoreId;
                     staffToUpdate.ManagerId = staff.ManagerId;
-                    
+
 
                     await db.SaveChangesAsync();
 
                     return staffToUpdate;
+                }
+            }
+        }
+
+        //Customer
+        public async Task<List<Customer>> GetAllCustomersAsync()
+        {
+            List<Customer> customers;
+            using (var db = _dbContext)
+            {
+                customers = await db.Customers.ToListAsync();
+            }
+
+            return customers;
+        }
+
+        public async Task<Customer> GetCustomerByIdAsync(int id)
+        {
+            {
+
+                Customer customer;
+
+                using var db = _dbContext;
+                {
+                    customer = await db.Customers.FirstOrDefaultAsync(c => c.Id == id);
+                }
+
+                return customer;
+            }
+        }
+
+        public async Task CreateCustomerAsync(Customer customer)
+        {
+            using (var db = _dbContext)
+            {
+                await db.Customers.AddAsync(customer);
+                await db.SaveChangesAsync();
+            }
+        }
+
+        public async Task<bool> DeleteCustomerAsync(int id)
+        {
+            Customer customerToDelete;
+            using (var db = _dbContext)
+            {
+                customerToDelete = await db.Customers.FirstOrDefaultAsync(x => x.Id == id);
+                if (customerToDelete == null)
+                {
+                    //False means the item was not deleted.
+                    return false;
+                }
+                else
+                {
+                    db.Customers.Remove(customerToDelete);
+                    await db.SaveChangesAsync();
+                    return true;
+                }
+            }
+        }
+
+        public async Task<Customer> UpdateCustomerAsync(int id, Customer customer)
+        {
+            {
+                Customer customerToUpdate;
+                using var db = _dbContext;
+                {
+                    customerToUpdate = await db.Customers.FirstOrDefaultAsync(x => x.Id == id);
+                    if (customerToUpdate == null)
+                    {
+                        return null;
+                    }
+
+                    customerToUpdate.FirstName = customer.FirstName;
+                    customerToUpdate.LastName = customer.LastName;
+                    customerToUpdate.AddressId = customer.AddressId;
+                    
+                    await db.SaveChangesAsync();
+
+                    return customerToUpdate;
                 }
             }
         }

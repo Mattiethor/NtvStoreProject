@@ -5,14 +5,14 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace FakeStoreProject.Controllers
 {
-    [Route("api/staff")]
+    [Route("api/customers")]
     [Controller]
-    public class StaffController : ControllerBase
+    public class CustomerController : ControllerBase
     {
         private IRepository _repository;
 
         //Used to access the database
-        public StaffController(IRepository repository)
+        public CustomerController(IRepository repository)
         {
             _repository = repository;
         }
@@ -20,14 +20,14 @@ namespace FakeStoreProject.Controllers
 
 
         [HttpGet]
-        public async Task<ActionResult<List<Staff>>> GetAllStaffAsync()
+        public async Task<ActionResult<List<Customer>>> GetAllCustomersAsync()
         {
             try
             {
 
 
-                List<Staff> staff = await _repository.GetAllStaffAsync();
-                return Ok(staff);
+                List<Customer> customers = await _repository.GetAllCustomersAsync();
+                return Ok(customers);
 
             }
             catch (Exception)
@@ -40,20 +40,20 @@ namespace FakeStoreProject.Controllers
 
         [HttpGet]
         [Route("{id}")]
-        public async Task<ActionResult<Staff>> GetStaffByIdAsync(int id)
+        public async Task<ActionResult<Customer>> GetCustomerByIdAsync(int id)
         {
 
             try
             {
-                //ASK about why i don't get 404
-                Staff staff = await _repository.GetStaffByIdAsync(id);
-                if (staff == null)
+                
+                Customer customer = await _repository.GetCustomerByIdAsync(id);
+                if (customer == null)
                 {
                     return NotFound();
                 }
                 else
                 {
-                    return Ok(staff);
+                    return Ok(customer);
                 }
 
             }
@@ -64,17 +64,17 @@ namespace FakeStoreProject.Controllers
             }
 
         }
-        //Create category
+        //Create 
         [HttpPost]
-        public async Task<IActionResult> CreateStaffAsync([FromBody] Staff staff)
+        public async Task<IActionResult> CreateCustomerAsync([FromBody] Customer customer)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
-                    await _repository.CreateStaffAsync(staff);
-                    //ASK TEACHER ABOUT THIS
-                    return CreatedAtAction(nameof(GetStaffByIdAsync), new { staff.Id }, staff);
+                    await _repository.CreateCustomerAsync(customer);
+                    
+                    return CreatedAtAction(nameof(GetCustomerByIdAsync), new { customer.Id }, customer);
                 }
                 else
                 {
@@ -89,14 +89,14 @@ namespace FakeStoreProject.Controllers
             }
         }
 
-        //Delete Category 
+        //Delete  
         [HttpDelete]
         [Route("{id}")]
-        public async Task<ActionResult<Staff>> DeleteStaffAsync(int id)
+        public async Task<ActionResult<Customer>> DeleteCustomerAsync(int id)
         {
             try
             {
-                bool deleteSuccessful = await _repository.DeleteStaffAsync(id);
+                bool deleteSuccessful = await _repository.DeleteCustomerAsync(id);
                 if (!deleteSuccessful)
                 {
                     return NotFound();
@@ -113,22 +113,22 @@ namespace FakeStoreProject.Controllers
             }
         }
 
-        //UPDATE SECTION
+        //UPDATE 
         [HttpPut]
         [Route("{id}")]
         //Put id before FromBody, the id does not get updated.
-        public async Task<ActionResult<Staff>> UpdateStaffAsync(int id, [FromBody] Staff staff)
+        public async Task<ActionResult<Customer>> UpdateCustomerAsync(int id, [FromBody] Customer customer)
         {
             try
             {
-                Staff staffToUpdate = await _repository.UpdateStaffAsync(id, staff);
-                if (staffToUpdate == null)
+                Customer customerToUpdate = await _repository.UpdateCustomerAsync(id, customer);
+                if (customerToUpdate == null)
                 {
                     return NotFound();
                 }
                 else
                 {
-                    return CreatedAtAction(nameof(GetStaffByIdAsync), new { staffToUpdate.Id }, staff);
+                    return CreatedAtAction(nameof(GetCustomerByIdAsync), new { customerToUpdate.Id }, customer);
                 }
 
 

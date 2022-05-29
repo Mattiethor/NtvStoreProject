@@ -72,5 +72,15 @@ namespace FakeStoreProject.Data.Interfaces
 
         Task<Staff> UpdateStaffAsync(int id, Staff staff);
 
+        //Customer
+        Task<List<Customer>> GetAllCustomersAsync();
+        Task<Customer> GetCustomerByIdAsync(int id);
+
+        Task CreateCustomerAsync(Customer customer);
+
+        Task<bool> DeleteCustomerAsync(int id);
+
+        Task<Customer> UpdateCustomerAsync(int id, Customer customer);
+
     }
 }
