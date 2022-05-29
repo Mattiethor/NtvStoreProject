@@ -190,6 +190,29 @@ namespace FakeStoreProject.Data.Interfaces
             return addressToReturn;
         }
 
+
+        public async Task<List<Staff>> GetAllStaffAsync()
+        {
+            List<Staff> staff;
+            using (var db = _dbContext)
+            {
+                staff = await db.Staffs.ToListAsync();
+            }
+            return staff;
+        }
+
+        public async Task<Staff> GetStaffByIdAsync(int id)
+        {
+            Staff staffToReturn;
+
+            using var db = _dbContext;
+            {
+                staffToReturn = await db.Staffs.FirstOrDefaultAsync(c => c.Id == id);
+            }
+
+            return staffToReturn;
+        }
+
         //CREATE SECTION
         public async Task CreateCategoryAsync(Category category)
         {
@@ -233,6 +256,15 @@ namespace FakeStoreProject.Data.Interfaces
             using (var db = _dbContext)
             {
                 await db.Addresses.AddAsync(address);
+                await db.SaveChangesAsync();
+            }
+        }
+
+        public async Task CreateStaffAsync(Staff staff)
+        {
+            using (var db = _dbContext)
+            {
+                await db.Staffs.AddAsync(staff);
                 await db.SaveChangesAsync();
             }
         }
@@ -346,7 +378,26 @@ namespace FakeStoreProject.Data.Interfaces
 
             }
         }
+        public async Task<bool> DeleteStaffAsync(int id)
+        {
+            Staff staffToDelete;
+            using (var db = _dbContext)
+            {
+                staffToDelete = await db.Staffs.FirstOrDefaultAsync(x => x.Id == id);
+                if (staffToDelete == null)
+                {
+                    //False means the item was not deleted.
+                    return false;
+                }
+                else
+                {
+                    db.Staffs.Remove(staffToDelete);
+                    await db.SaveChangesAsync();
+                    return true;
+                }
 
+            }
+        }
 
 
         //UPDATE SECTION
@@ -469,6 +520,31 @@ namespace FakeStoreProject.Data.Interfaces
                     await db.SaveChangesAsync();
         
                     return addressToUpdate;
+                }
+            }
+        }
+
+        public async Task<Staff> UpdateStaffAsync(int id, Staff staff)
+        {
+            {
+                Staff staffToUpdate;
+                using var db = _dbContext;
+                {
+                    staffToUpdate = await db.Staffs.FirstOrDefaultAsync(x => x.Id == id);
+                    if (staffToUpdate == null)
+                    {
+                        return null;
+                    }
+
+                    staffToUpdate.FirstName = staff.FirstName;
+                    staffToUpdate.LastName = staff.LastName;
+                    staffToUpdate.StoreId = staff.StoreId;
+                    staffToUpdate.ManagerId = staff.ManagerId;
+                    
+
+                    await db.SaveChangesAsync();
+
+                    return staffToUpdate;
                 }
             }
         }
