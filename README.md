@@ -15,9 +15,9 @@ This Database relationship chart was used to make this project.
 
 ## Example in swagger:
 
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/65e1c97e-9016-4686-8ad3-715badb593a4/Untitled.png)
+![image](https://user-images.githubusercontent.com/82813440/172060019-e9e2d97d-2a01-4d87-bc8f-43eb4008e549.png)
 
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/261892d6-9e81-49ad-bd3e-f41cfa6b8654/Untitled.png)
+![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/65e1c97e-9016-4686-8ad3-715badb593a4/Untitled.png)
 
 ![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/21bf6be4-8959-4e64-b117-3a6088dd8558/Untitled.png)
 
